@@ -9,7 +9,10 @@ import SwiftUI
 import Combine
 
 extension MovieSearchView {
-  struct ViewModel: MovieSearchViewItemInterface, Equatable {
+  struct ViewModel: MovieSearchViewItemInterface, Equatable, Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+      ProxyRepresentation(exporting: \.title)
+    }
     var title: String
     var releaseDate: String
     var genre: String

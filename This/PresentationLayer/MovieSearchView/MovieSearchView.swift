@@ -8,14 +8,12 @@
 import SwiftUI
 import Combine
 
-
-
-
-
 struct MovieSearchView: View {
   @ObservedObject var configuration: Configuration
   @State private var viewModel: ViewModel = .init(title: "", releaseDate: "", genre: "", casting: "", bookmarked: false, imageURLString: "")
+  @State private var image = Image(systemName: "heart")
   @State private var cancellables = Set<AnyCancellable>()
+  @State private var showShareSheet = false
   var body: some View {
     NavigationStack {
       ScrollView {
@@ -26,18 +24,11 @@ struct MovieSearchView: View {
       }
       .navigationTitle(viewModel.title)
     }
-    .searchable(text: $configuration.searchText)
-    .onAppear {
-      configuration
-        .item
-        .compactMap { interface in
-          interface as? ViewModel
-        }
-        .sink { viewModel in
-          self.viewModel = viewModel
-        }
-        .store(in: &cancellables)
+    .sheet(isPresented: $showShareSheet) {
+      ActivityView(image: image, title: viewModel.title, subTitle: viewModel.releaseDate)
     }
+    .searchable(text: $configuration.searchText)
+    .onAppear(perform: bind)
   }
 
   var posterSection: some View {
@@ -48,6 +39,9 @@ struct MovieSearchView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .animation(.easeIn(duration: 1), value: 0)
+            .onAppear {
+              self.image = image
+            }
           VStack {
             Spacer()
             HStack {
@@ -92,7 +86,7 @@ struct MovieSearchView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
       }
       Button {
-
+        showShareSheet.toggle()
       } label: {
         Image(systemName: "square.and.arrow.up")
           .resizable()
@@ -103,10 +97,35 @@ struct MovieSearchView: View {
     }
     .padding(EdgeInsets(top: 0, leading: 16, bottom: 40, trailing: 16))
   }
+
+  private func bind() {
+    configuration
+      .item
+      .compactMap { interface in
+        interface as? ViewModel
+      }
+      .sink { viewModel in
+        self.viewModel = viewModel
+      }
+      .store(in: &cancellables)
+  }
 }
 
 struct MovieSearchView_Previews: PreviewProvider {
   static var previews: some View {
     MovieSearchView(configuration: .init(useCase: MockMovieSearchUseCase()))
+  }
+}
+
+struct ActivityView: UIViewControllerRepresentable {
+  let image: Image
+  let title: String
+  let subTitle: String
+  func makeUIViewController(context: Context) -> UIActivityViewController {
+    UIActivityViewController(activityItems: [image, title, subTitle], applicationActivities: [])
+  }
+
+  func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+
   }
 }
