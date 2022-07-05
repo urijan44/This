@@ -13,6 +13,10 @@
 		8A29848E2874855500A59454 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A29848D2874855500A59454 /* Preview Assets.xcassets */; };
 		8A2984902874855500A59454 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29848F2874855500A59454 /* Persistence.swift */; };
 		8A2984932874855500A59454 /* This.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984912874855500A59454 /* This.xcdatamodeld */; };
+		8A29849A287485BD00A59454 /* MovieSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A298499287485BD00A59454 /* MovieSearchView.swift */; };
+		8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */; };
+		8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */; };
+		8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		8A29848D2874855500A59454 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8A29848F2874855500A59454 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8A2984922874855500A59454 /* This.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = This.xcdatamodel; sourceTree = "<group>"; };
+		8A298499287485BD00A59454 /* MovieSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchView.swift; sourceTree = "<group>"; };
+		8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewConfiguration.swift; sourceTree = "<group>"; };
+		8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchItemInterface.swift; sourceTree = "<group>"; };
+		8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieSearchUseCaseProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,7 @@
 			children = (
 				8A2984862874855400A59454 /* ThisApp.swift */,
 				8A2984882874855400A59454 /* ContentView.swift */,
+				8A29849E2874A26200A59454 /* PresentationLayer */,
 				8A29848A2874855500A59454 /* Assets.xcassets */,
 				8A29848F2874855500A59454 /* Persistence.swift */,
 				8A2984912874855500A59454 /* This.xcdatamodeld */,
@@ -71,6 +80,33 @@
 				8A29848D2874855500A59454 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8A29849B2874A21400A59454 /* MovieSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				8A2984A02874A27000A59454 /* Interface */,
+				8A298499287485BD00A59454 /* MovieSearchView.swift */,
+				8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */,
+			);
+			path = MovieSearchView;
+			sourceTree = "<group>";
+		};
+		8A29849E2874A26200A59454 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8A29849B2874A21400A59454 /* MovieSearchView */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		8A2984A02874A27000A59454 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */,
+				8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +179,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */,
+				8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */,
+				8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */,
+				8A29849A287485BD00A59454 /* MovieSearchView.swift in Sources */,
 				8A2984902874855500A59454 /* Persistence.swift in Sources */,
 				8A2984932874855500A59454 /* This.xcdatamodeld in Sources */,
 				8A2984892874855400A59454 /* ContentView.swift in Sources */,

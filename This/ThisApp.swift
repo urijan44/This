@@ -13,7 +13,7 @@ struct ThisApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          MovieSearchView(configuration: .init(useCase: MockMovieSearchUseCase()))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
