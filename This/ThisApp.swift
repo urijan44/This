@@ -9,12 +9,13 @@ import SwiftUI
 
 @main
 struct ThisApp: App {
-    let persistenceController = PersistenceController.shared
+  private let diContainer = DependencyInjectionContainer()
+  let persistenceController = PersistenceController.shared
 
-    var body: some Scene {
-        WindowGroup {
-          MovieSearchView(configuration: .init(useCase: MockMovieSearchUseCase()))
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
+  var body: some Scene {
+    WindowGroup {
+      diContainer.makeMovieSearchView()
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
+  }
 }

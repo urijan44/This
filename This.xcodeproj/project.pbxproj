@@ -17,6 +17,7 @@
 		8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */; };
 		8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */; };
 		8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */; };
+		8A2984A82874A33800A59454 /* DependencyInjectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewConfiguration.swift; sourceTree = "<group>"; };
 		8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchItemInterface.swift; sourceTree = "<group>"; };
 		8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieSearchUseCaseProtocol.swift; sourceTree = "<group>"; };
+		8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,8 @@
 			children = (
 				8A2984862874855400A59454 /* ThisApp.swift */,
 				8A2984882874855400A59454 /* ContentView.swift */,
+				8A2984A62874A32D00A59454 /* App */,
+				8A2984A52874A32400A59454 /* DomainLayer */,
 				8A29849E2874A26200A59454 /* PresentationLayer */,
 				8A29848A2874855500A59454 /* Assets.xcassets */,
 				8A29848F2874855500A59454 /* Persistence.swift */,
@@ -107,6 +111,21 @@
 				8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */,
 			);
 			path = Interface;
+			sourceTree = "<group>";
+		};
+		8A2984A52874A32400A59454 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		8A2984A62874A32D00A59454 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A2984A82874A33800A59454 /* DependencyInjectionContainer.swift in Sources */,
 				8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */,
 				8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */,
 				8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */,
