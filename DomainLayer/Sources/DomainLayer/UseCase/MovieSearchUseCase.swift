@@ -30,17 +30,20 @@ struct MovieSearchUseCase {
   }
 }
 
-//extension MovieSearchUseCase: MovieSearchUseCaseInterface {
-//  func fetchSearcResult(searchText: String) -> AnyPublisher<MovieSearchViewItemInterface, Never> {
-//    let request = MovieSearchMessage.Request(searchText: searchText)
-//    return Just(MovieSearchView.ViewModel(
-//      title: "쥬라기 월드",
-//      releaseDateString: "2022/08/12",
-//      genreString: "SF",
-//      castingString: "크리스 프랫",
-//      bookmarked: false,
-//      imageURLString: "https://image.tmdb.org/t/p/w500/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg"
-//    ))
-//    .eraseToAnyPublisher()
-//  }
-//}
+extension MovieSearchUseCase: MovieSearchUseCaseInterface {
+  func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
+    let request = MovieSearchMessage.Request(searchText: searchText)
+    return interactor.fetchSearchResult(request: request)
+      .replaceError(with: .init(movie: .init(id: "", title: "", releaseDate: Date(), genre: [], casting: [], boomarked: false, imageURLString: "")))
+      .flatMap(responseProcessor(response:))
+      .eraseToAnyPublisher()
+
+  }
+
+  private func responseProcessor(response: MovieSearchMessage.Response) -> AnyPublisher<Movie, Never> {
+    let movie = response.movie
+    return Just(movie)
+    .eraseToAnyPublisher()
+  }
+}
+
