@@ -58,12 +58,12 @@ extension MovieSearchView {
     }
   }
 
-  final class Configuration: ObservableObject {
+  public final class Configuration: ObservableObject {
     @Published var searchText = ""
     let item = PassthroughSubject<MovieSearchViewItemInterface, Never>()
     private let useCase: MovieSearchUseCaseInterface
     private var cancellables: Set<AnyCancellable> = []
-    init(useCase: MovieSearchUseCaseInterface) {
+    public init(useCase: MovieSearchUseCaseInterface) {
       self.useCase = useCase
 
       $searchText

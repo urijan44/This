@@ -9,8 +9,8 @@ import Foundation
 import Combine
 import DomainLayer
 
-struct MockMovieSearchUseCase: MovieSearchUseCaseInterface {
-  func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
+public struct MockMovieSearchUseCase: MovieSearchUseCaseInterface {
+  public func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
     Just(
       Movie(
         id: "",
@@ -23,6 +23,8 @@ struct MockMovieSearchUseCase: MovieSearchUseCaseInterface {
     )
     .eraseToAnyPublisher()
   }
+
+  public init() {}
 }
 
 

@@ -8,13 +8,13 @@
 import SwiftUI
 import Combine
 
-struct MovieSearchView: View {
+public struct MovieSearchView: View {
   @ObservedObject var configuration: Configuration
   @State private var viewModel: ViewModel = .init(title: "", releaseDateString: "", genreString: "", castingString: "", bookmarked: false, imageURLString: "")
   @State private var image = Image(systemName: "heart")
   @State private var cancellables = Set<AnyCancellable>()
   @State private var showShareSheet = false
-  var body: some View {
+  public var body: some View {
     NavigationStack {
       ScrollView {
         VStack(spacing: 0) {
@@ -96,6 +96,10 @@ struct MovieSearchView: View {
       }
     }
     .padding(EdgeInsets(top: 0, leading: 16, bottom: 40, trailing: 16))
+  }
+
+  public init(configuration: Configuration) {
+    self.configuration = configuration
   }
 
   private func bind() {
