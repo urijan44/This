@@ -10,7 +10,7 @@ import Combine
 
 struct MovieSearchView: View {
   @ObservedObject var configuration: Configuration
-  @State private var viewModel: ViewModel = .init(title: "", releaseDate: "", genre: "", casting: "", bookmarked: false, imageURLString: "")
+  @State private var viewModel: ViewModel = .init(title: "", releaseDateString: "", genreString: "", castingString: "", bookmarked: false, imageURLString: "")
   @State private var image = Image(systemName: "heart")
   @State private var cancellables = Set<AnyCancellable>()
   @State private var showShareSheet = false
@@ -25,7 +25,7 @@ struct MovieSearchView: View {
       .navigationTitle(viewModel.title)
     }
     .sheet(isPresented: $showShareSheet) {
-      ActivityView(image: image, title: viewModel.title, subTitle: viewModel.releaseDate)
+      ActivityView(image: image, title: viewModel.title, subTitle: viewModel.releaseDateString)
     }
     .searchable(text: $configuration.searchText)
     .onAppear(perform: bind)
@@ -76,11 +76,11 @@ struct MovieSearchView: View {
         Group {
           Text("제목: \(viewModel.title)")
             .font(.title.weight(.bold))
-          Text("개봉일: \(viewModel.releaseDate)")
+          Text("개봉일: \(viewModel.releaseDateString)")
             .font(.body)
-          Text("장르: \(viewModel.genre)")
+          Text("장르: \(viewModel.genreString)")
             .font(.body)
-          Text("주연배우: \(viewModel.casting)")
+          Text("주연배우: \(viewModel.castingString)")
             .font(.body)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

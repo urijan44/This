@@ -15,10 +15,11 @@
 		8A2984932874855500A59454 /* This.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984912874855500A59454 /* This.xcdatamodeld */; };
 		8A29849A287485BD00A59454 /* MovieSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A298499287485BD00A59454 /* MovieSearchView.swift */; };
 		8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */; };
-		8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */; };
 		8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */; };
 		8A2984A82874A33800A59454 /* DependencyInjectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */; };
-		8A34BD952875D7E600EAEB2F /* MovieSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A34BD942875D7E600EAEB2F /* MovieSearchUseCase.swift */; };
+		8ADA21A52875E73300A4B370 /* DomainLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 8ADA21A42875E73300A4B370 /* DomainLayer */; };
+		8ADA21A72875E7F400A4B370 /* MovieSearchItemInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA21A62875E7F400A4B370 /* MovieSearchItemInterface.swift */; };
+		8AF387352875E03400D1C5DF /* MovieSearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF387342875E03400D1C5DF /* MovieSearchResultResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,10 +32,11 @@
 		8A2984922874855500A59454 /* This.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = This.xcdatamodel; sourceTree = "<group>"; };
 		8A298499287485BD00A59454 /* MovieSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchView.swift; sourceTree = "<group>"; };
 		8A29849C2874A22200A59454 /* MovieSearchViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewConfiguration.swift; sourceTree = "<group>"; };
-		8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchItemInterface.swift; sourceTree = "<group>"; };
 		8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMovieSearchUseCaseProtocol.swift; sourceTree = "<group>"; };
 		8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionContainer.swift; sourceTree = "<group>"; };
-		8A34BD942875D7E600EAEB2F /* MovieSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchUseCase.swift; sourceTree = "<group>"; };
+		8ADA21A62875E7F400A4B370 /* MovieSearchItemInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchItemInterface.swift; sourceTree = "<group>"; };
+		8AF387342875E03400D1C5DF /* MovieSearchResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchResultResponse.swift; sourceTree = "<group>"; };
+		8AF387432875E44200D1C5DF /* DomainLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DomainLayer; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ADA21A52875E73300A4B370 /* DomainLayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +54,10 @@
 		8A29847A2874855400A59454 = {
 			isa = PBXGroup;
 			children = (
+				8AF387432875E44200D1C5DF /* DomainLayer */,
 				8A2984852874855400A59454 /* This */,
 				8A2984842874855400A59454 /* Products */,
+				8ADA21A32875E73300A4B370 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,7 +75,7 @@
 				8A2984862874855400A59454 /* ThisApp.swift */,
 				8A2984882874855400A59454 /* ContentView.swift */,
 				8A2984A62874A32D00A59454 /* App */,
-				8A2984A52874A32400A59454 /* DomainLayer */,
+				8AF387322875E00100D1C5DF /* DataLayer */,
 				8A29849E2874A26200A59454 /* PresentationLayer */,
 				8A29848A2874855500A59454 /* Assets.xcassets */,
 				8A29848F2874855500A59454 /* Persistence.swift */,
@@ -109,18 +114,10 @@
 		8A2984A02874A27000A59454 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8A2984A12874A27E00A59454 /* MovieSearchItemInterface.swift */,
+				8ADA21A62875E7F400A4B370 /* MovieSearchItemInterface.swift */,
 				8A2984A32874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift */,
 			);
 			path = Interface;
-			sourceTree = "<group>";
-		};
-		8A2984A52874A32400A59454 /* DomainLayer */ = {
-			isa = PBXGroup;
-			children = (
-				8A34BD942875D7E600EAEB2F /* MovieSearchUseCase.swift */,
-			);
-			path = DomainLayer;
 			sourceTree = "<group>";
 		};
 		8A2984A62874A32D00A59454 /* App */ = {
@@ -129,6 +126,29 @@
 				8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		8ADA21A32875E73300A4B370 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8AF387322875E00100D1C5DF /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8AF387332875E01F00D1C5DF /* APIModel */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		8AF387332875E01F00D1C5DF /* APIModel */ = {
+			isa = PBXGroup;
+			children = (
+				8AF387342875E03400D1C5DF /* MovieSearchResultResponse.swift */,
+			);
+			path = APIModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +167,9 @@
 			dependencies = (
 			);
 			name = This;
+			packageProductDependencies = (
+				8ADA21A42875E73300A4B370 /* DomainLayer */,
+			);
 			productName = This;
 			productReference = 8A2984832874855400A59454 /* This.app */;
 			productType = "com.apple.product-type.application";
@@ -202,12 +225,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A2984A82874A33800A59454 /* DependencyInjectionContainer.swift in Sources */,
+				8ADA21A72875E7F400A4B370 /* MovieSearchItemInterface.swift in Sources */,
 				8A29849D2874A22200A59454 /* MovieSearchViewConfiguration.swift in Sources */,
-				8A2984A22874A27E00A59454 /* MovieSearchItemInterface.swift in Sources */,
 				8A2984A42874A2A500A59454 /* MockMovieSearchUseCaseProtocol.swift in Sources */,
 				8A29849A287485BD00A59454 /* MovieSearchView.swift in Sources */,
 				8A2984902874855500A59454 /* Persistence.swift in Sources */,
-				8A34BD952875D7E600EAEB2F /* MovieSearchUseCase.swift in Sources */,
+				8AF387352875E03400D1C5DF /* MovieSearchResultResponse.swift in Sources */,
 				8A2984932874855500A59454 /* This.xcdatamodeld in Sources */,
 				8A2984892874855400A59454 /* ContentView.swift in Sources */,
 				8A2984872874855400A59454 /* ThisApp.swift in Sources */,
@@ -411,6 +434,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8ADA21A42875E73300A4B370 /* DomainLayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DomainLayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8A2984912874855500A59454 /* This.xcdatamodeld */ = {
