@@ -6,9 +6,31 @@
 //
 
 import Foundation
-import Combine
 
 struct TMDBService {
+  enum TMDBError: Error, LocalizedError {
+    case invalidResponse
+    case invalidData
+    case clientError(Int, String)
+    case serverError(Int, String)
+    case unknown(String)
+
+    var errorDescription: String? {
+      switch self {
+        case .invalidResponse:
+          return "Invalid Response"
+        case .invalidData:
+          return "Invalid Data"
+        case .clientError(let code, let message):
+          return "Client Error: \(code) \(message)"
+        case .serverError(let code, let message):
+          return "Server Error: \(code) \(message)"
+        case .unknown(let message):
+          return "Unknown Error: \(message)"
+      }
+    }
+  }
+
   enum Request {
     enum SearchMovie {
       struct Message {
@@ -23,7 +45,7 @@ struct TMDBService {
     enum SearchMovie {
       struct Message {
         let data: Data?
-        let error: String?
+        let error: TMDBError?
       }
     }
   }
@@ -39,7 +61,7 @@ struct TMDBService {
       switch result {
         case .success((let data, let response)):
           guard let response = response as? HTTPURLResponse else {
-            message = Response.SearchMovie.Message(data: nil, error: "invalid response")
+            message = Response.SearchMovie.Message(data: nil, error: .invalidResponse)
             completion(message)
             return
           }
@@ -48,14 +70,15 @@ struct TMDBService {
               if let data = data {
                 message = Response.SearchMovie.Message(data: data, error: nil)
               } else {
-                message = Response.SearchMovie.Message(data: nil, error: "invalid data")
+                message = Response.SearchMovie.Message(data: nil, error: .invalidData)
               }
-
+            case 400..<500, 500..<600:
+              message = Response.SearchMovie.Message(data: nil, error: .clientError(response.statusCode, response.description))
             default:
-              message = Response.SearchMovie.Message(data: nil, error: "Client Error")
+              message = Response.SearchMovie.Message(data: nil, error: .unknown("\(response.statusCode)"))
           }
         case .failure(let error):
-          message = Response.SearchMovie.Message(data: nil, error: error.localizedDescription)
+          message = Response.SearchMovie.Message(data: nil, error: .unknown(error.localizedDescription))
       }
         completion(message)
     }
