@@ -17,7 +17,10 @@ let package = Package(
         .target(
             name: "ThisDataLayer",
             dependencies: [],
-            resources: [.process("Resources/info.plist")]
+            resources: [
+              .process("Resources/info.plist"),
+              .process("Resources/TMDBGenre.json")
+            ]
         ),
         .testTarget(
           name: "ThisDataLayerTests",

@@ -35,6 +35,17 @@ final class TMDBRepositoryTest: XCTestCase {
           exp.fulfill()
       }
     }
-    waitForExpectations(timeout: 0.1)
+    waitForExpectations(timeout: 0.5)
+  }
+
+  func testRepository_genre_decoding() {
+    // Given
+    let expect = "액션"
+    let id = 28
+    // When
+
+    let result = sut.fetchGenreResult(genreID: id)
+    // Then
+    XCTAssertEqual(result, expect)
   }
 }
