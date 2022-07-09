@@ -30,7 +30,7 @@ extension MovieSearchUseCase: MovieSearchUseCaseInterface {
   public func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
     let request = MovieSearchMessage.Request(searchText: searchText)
     return interactor.fetchSearchResult(request: request)
-      .replaceError(with: .init(movie: .init(id: "", title: "", releaseDate: Date(), genre: [], casting: [], boomarked: false, imageURLString: "")))
+      .replaceError(with: .init(movie: .init(id: "", title: "\(searchText)의 검색결과를 찾을 수 없습니다.", releaseDate: Date(), genre: [], casting: [], boomarked: false, imageURLString: "")))
       .flatMap(responseProcessor(response:))
       .eraseToAnyPublisher()
 
