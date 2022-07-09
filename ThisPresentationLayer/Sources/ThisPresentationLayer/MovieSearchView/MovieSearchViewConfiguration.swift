@@ -41,7 +41,7 @@ extension MovieSearchView {
       self.genreString = ""
       self.castingString = ""
       self.releaseDateString = dateToString(date: movie.releaseDate)
-      self.genreString = genreCombineer(genres: movie.genre)
+      self.genreString = genreCombineer(genres: movie.genre.map(\.name))
       self.castingString = castingCombiner(casting: movie.casting)
     }
 

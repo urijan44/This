@@ -8,26 +8,26 @@
 import Foundation
 import Combine
 
-struct MovieSearchUseCase {
+public struct MovieSearchUseCase {
   private let interactor: MovieSearchInteractorInterface
 
-  init(interactor: MovieSearchInteractorInterface) {
+  public init(interactor: MovieSearchInteractorInterface) {
     self.interactor = interactor
   }
 
-  enum MovieSearchMessage {
-    struct Request {
+  public enum MovieSearchMessage {
+    public struct Request {
       let searchText: String
     }
 
-    struct Response {
+    public struct Response {
       let movie: Movie
     }
   }
 }
 
 extension MovieSearchUseCase: MovieSearchUseCaseInterface {
-  func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
+  public func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never> {
     let request = MovieSearchMessage.Request(searchText: searchText)
     return interactor.fetchSearchResult(request: request)
       .replaceError(with: .init(movie: .init(id: "", title: "", releaseDate: Date(), genre: [], casting: [], boomarked: false, imageURLString: "")))

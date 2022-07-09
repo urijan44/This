@@ -9,14 +9,14 @@ import Foundation
 import Combine
 import ThisDataLayer
 
-protocol MovieSearchInteractorInterface {
+public protocol MovieSearchInteractorInterface {
   func fetchSearchResult(request: MovieSearchUseCase.MovieSearchMessage.Request) -> Future<MovieSearchUseCase.MovieSearchMessage.Response, Error>
 }
 
-struct MovieSearchInteractor {
+public struct MovieSearchInteractor {
   private let repository: TMDBRepositoryInterface
 
-  init(repository: TMDBRepositoryInterface) {
+  public init(repository: TMDBRepositoryInterface) {
     self.repository = repository
   }
 
@@ -31,7 +31,7 @@ struct MovieSearchInteractor {
         genre: genreIDSFormatting(genres: movieSearchResult.genreIDS),
         casting: [],
         boomarked: false,
-        imageURLString: movieSearchResult.posterPath ?? "")
+        imageURLString: "https://image.tmdb.org/t/p/w500/" + (movieSearchResult.posterPath ?? ""))
     }
   }
 
@@ -52,7 +52,7 @@ struct MovieSearchInteractor {
 }
 
 extension MovieSearchInteractor: MovieSearchInteractorInterface {
-  func fetchSearchResult(request: MovieSearchUseCase.MovieSearchMessage.Request) -> Future<MovieSearchUseCase.MovieSearchMessage.Response, Error> {
+  public func fetchSearchResult(request: MovieSearchUseCase.MovieSearchMessage.Request) -> Future<MovieSearchUseCase.MovieSearchMessage.Response, Error> {
     return Future<MovieSearchUseCase.MovieSearchMessage.Response, Error> { promise in
       repository.fetchSearchResult(text: request.searchText, language: "ko-KR", region: "KR") { result in
 

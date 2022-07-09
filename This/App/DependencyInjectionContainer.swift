@@ -6,12 +6,15 @@
 //
 
 import Foundation
-import ThisPresentationLayer
+import ThisDataLayer
 import DomainLayer
+import ThisPresentationLayer
 
 struct DependencyInjectionContainer {
   func makeMovieSearchView() -> MovieSearchView {
-    let useCase = MockMovieSearchUseCase()
+    let repository = TMDBRepository()
+    let interactor = MovieSearchInteractor(repository: repository)
+    let useCase = MovieSearchUseCase(interactor: interactor)
     let configuration = MovieSearchView.Configuration(useCase: useCase)
     return MovieSearchView(configuration: configuration)
   }

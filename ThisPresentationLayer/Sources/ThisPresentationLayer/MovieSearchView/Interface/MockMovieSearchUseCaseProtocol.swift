@@ -16,7 +16,7 @@ public struct MockMovieSearchUseCase: MovieSearchUseCaseInterface {
         id: "",
         title: "쥬라기월드",
         releaseDate: Date(),
-        genre: ["SF"],
+        genre: [Genre(id: 0, name: "SF")],
         casting: ["크리스프랫"],
         boomarked: false,
         imageURLString: "https://image.tmdb.org/t/p/w500/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg")
