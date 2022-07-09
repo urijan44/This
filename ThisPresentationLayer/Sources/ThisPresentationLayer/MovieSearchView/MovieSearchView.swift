@@ -15,7 +15,7 @@ public struct MovieSearchView: View {
   @State private var cancellables = Set<AnyCancellable>()
   @State private var showShareSheet = false
   public var body: some View {
-    NavigationStack {
+    NavigationView {
       ScrollView {
         VStack(spacing: 0) {
           posterSection
@@ -24,6 +24,7 @@ public struct MovieSearchView: View {
       }
       .navigationTitle(viewModel.title)
     }
+    .navigationViewStyle(.stack)
     .sheet(isPresented: $showShareSheet) {
       ActivityView(image: image, title: viewModel.title, subTitle: viewModel.releaseDateString)
     }
@@ -51,7 +52,9 @@ public struct MovieSearchView: View {
           }
         }
       } else {
-        ProgressView()
+        if !configuration.searchText.isEmpty {
+          ProgressView()
+        }
       }
     }
     .padding(8)

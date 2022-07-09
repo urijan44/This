@@ -10,10 +10,7 @@ import Combine
 import DomainLayer
 
 extension MovieSearchView {
-  struct ViewModel: MovieSearchViewItemInterface, Equatable, Transferable {
-    static var transferRepresentation: some TransferRepresentation {
-      ProxyRepresentation(exporting: \.title)
-    }
+  struct ViewModel: MovieSearchViewItemInterface, Equatable {
     var id: String
     var title: String
     var releaseDateString: String
