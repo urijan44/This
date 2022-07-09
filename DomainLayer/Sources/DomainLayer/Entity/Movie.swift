@@ -11,12 +11,12 @@ public struct Movie {
   public let id: String
   public let title: String
   public let releaseDate: Date
-  public let genre: [String]
+  public let genre: [Genre]
   public let casting: [String]
   public var boomarked: Bool
   public let imageURLString: String
 
-  public init(id: String, title: String, releaseDate: Date, genre: [String], casting: [String], boomarked: Bool, imageURLString: String) {
+  public init(id: String, title: String, releaseDate: Date, genre: [Genre], casting: [String], boomarked: Bool, imageURLString: String) {
     self.id = id
     self.title = title
     self.releaseDate = releaseDate

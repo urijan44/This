@@ -8,10 +8,6 @@
 import Foundation
 import Combine
 
-protocol MovieSearchInteractorInterface {
-  func fetchSearchResult(request: MovieSearchUseCase.MovieSearchMessage.Request) -> AnyPublisher<MovieSearchUseCase.MovieSearchMessage.Response, Error>
-}
-
 struct MovieSearchUseCase {
   private let interactor: MovieSearchInteractorInterface
 
