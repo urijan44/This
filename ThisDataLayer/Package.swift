@@ -18,7 +18,7 @@ let package = Package(
             name: "ThisDataLayer",
             dependencies: [],
             resources: [
-              .process("Resources/info.plist"),
+              .process("Resources/token.plist"),
               .process("Resources/TMDBGenre.json")
             ]
         ),

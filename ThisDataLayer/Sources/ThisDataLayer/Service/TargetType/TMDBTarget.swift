@@ -10,7 +10,7 @@ enum TMDB: TargetType {
   private var accessToken: String? {
 
     guard
-      let url = Bundle.module.url(forResource: "info", withExtension: "plist"),
+      let url = Bundle.module.url(forResource: "token", withExtension: "plist"),
       let dictionary = NSMutableDictionary(contentsOf: url) as? Dictionary<String, Any>,
       let token = dictionary["TMDBAccessToken"] as? String
     else {
