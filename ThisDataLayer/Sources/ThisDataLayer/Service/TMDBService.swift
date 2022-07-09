@@ -73,7 +73,7 @@ struct TMDBService {
                 message = Response.SearchMovie.Message(data: nil, error: .invalidData)
               }
             case 400..<500, 500..<600:
-              message = Response.SearchMovie.Message(data: nil, error: .clientError(response.statusCode, response.description))
+              message = Response.SearchMovie.Message(data: nil, error: .clientError(response.statusCode, response.statusCode == 401 ? "인증 정보가 잘못 되었습니다." : response.description))
             default:
               message = Response.SearchMovie.Message(data: nil, error: .unknown("\(response.statusCode)"))
           }
