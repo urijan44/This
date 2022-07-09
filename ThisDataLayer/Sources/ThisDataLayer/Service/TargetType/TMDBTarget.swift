@@ -8,7 +8,15 @@
 import Foundation
 enum TMDB: TargetType {
   private var accessToken: String? {
-    Bundle.main.infoDictionary?["TMDBAccessToken"] as? String
+
+    guard
+      let url = Bundle.module.url(forResource: "info", withExtension: "plist"),
+      let dictionary = NSMutableDictionary(contentsOf: url) as? Dictionary<String, Any>,
+      let token = dictionary["TMDBAccessToken"] as? String
+    else {
+      return nil
+    }
+    return token
   }
 
   case searchMovie(text: String, language: String, region: String)
@@ -20,7 +28,7 @@ enum TMDB: TargetType {
   var path: String {
     switch self {
       case .searchMovie:
-        return "search/movie"
+        return "/search/movie"
 
     }
   }

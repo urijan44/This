@@ -13,6 +13,8 @@ public protocol TMDBRepositoryInterface {
 
 public struct TMDBRepository {
   private let service = TMDBService()
+
+  public init() {}
 }
 
 extension TMDBRepository: TMDBRepositoryInterface {
@@ -20,6 +22,7 @@ extension TMDBRepository: TMDBRepositoryInterface {
     service.request(message: .init(text: text, language: language, region: region)) { result in
       if let error = result.error {
         completion(.failure(error))
+        return
       }
 
       guard let data = result.data else {
