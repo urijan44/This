@@ -30,6 +30,7 @@
 		8A29848F2874855500A59454 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8A2984922874855500A59454 /* This.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = This.xcdatamodel; sourceTree = "<group>"; };
 		8A2984A72874A33800A59454 /* DependencyInjectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionContainer.swift; sourceTree = "<group>"; };
+		8A3C4E4028796FF400EC4EF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8ADA21A82875ED4100A4B370 /* ThisPresentationLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ThisPresentationLayer; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +71,7 @@
 		8A2984852874855400A59454 /* This */ = {
 			isa = PBXGroup;
 			children = (
+				8A3C4E4028796FF400EC4EF7 /* Info.plist */,
 				8A2984862874855400A59454 /* ThisApp.swift */,
 				8A2984882874855400A59454 /* ContentView.swift */,
 				8A2984A62874A32D00A59454 /* App */,
@@ -315,6 +317,7 @@
 				DEVELOPMENT_TEAM = XJXA3BQDMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = This/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +347,7 @@
 				DEVELOPMENT_TEAM = XJXA3BQDMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = This/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
