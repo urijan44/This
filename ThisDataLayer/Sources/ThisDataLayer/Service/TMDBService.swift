@@ -10,7 +10,7 @@ import Combine
 
 struct TMDBService {
   enum Request {
-    enum searchMovie {
+    enum SearchMovie {
       struct Message {
         let text: String
         let language: String
@@ -20,10 +20,10 @@ struct TMDBService {
   }
 
   enum Response {
-    enum searchMovie {
+    enum SearchMovie {
       struct Message {
         let data: Data?
-        let response: URLResponse?
+        let error: String?
       }
     }
   }
@@ -31,16 +31,33 @@ struct TMDBService {
   private let provider = NetworkProvider<TMDB>()
 
   func request(
-    message: Request.searchMovie.Message,
-    completion: @escaping (Result<Response.searchMovie.Message, Error>) -> Void) {
+    message: Request.SearchMovie.Message,
+    completion: @escaping (Response.SearchMovie.Message) -> Void) {
     provider.request(
       .searchMovie(text: message.text, language: message.language, region: message.region)) { result in
+        let message: Response.SearchMovie.Message
       switch result {
         case .success((let data, let response)):
-          completion(.success(Response.searchMovie.Message(data: data, response: response)))
+          guard let response = response as? HTTPURLResponse else {
+            message = Response.SearchMovie.Message(data: nil, error: "invalid response")
+            completion(message)
+            return
+          }
+          switch response.statusCode {
+            case 200..<300:
+              if let data = data {
+                message = Response.SearchMovie.Message(data: data, error: nil)
+              } else {
+                message = Response.SearchMovie.Message(data: nil, error: "invalid data")
+              }
+
+            default:
+              message = Response.SearchMovie.Message(data: nil, error: "Client Error")
+          }
         case .failure(let error):
-          completion(.failure(error))
+          message = Response.SearchMovie.Message(data: nil, error: error.localizedDescription)
       }
+        completion(message)
     }
   }
 }
