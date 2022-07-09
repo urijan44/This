@@ -9,7 +9,7 @@ import Foundation
 // MARK: - MovieSearchResultResponse
 struct MovieSearchResultResponse: Codable {
     var page: Int?
-    var results: [Result]?
+    var results: [SearchResult]?
     var totalPages: Int?
     var totalResults: Int?
 
@@ -22,7 +22,7 @@ struct MovieSearchResultResponse: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct SearchResult: Codable {
     var adult: Bool?
     var backdropPath: String?
     var genreIDS: [Int]?
