@@ -22,13 +22,13 @@ enum TMDB: TargetType {
   case searchMovie(text: String, language: String, region: String)
 
   var baseURL: String {
-    "https://api.themoviedb.org/3"
+    "https://api.themoviedb.org/"
   }
 
   var path: String {
     switch self {
       case .searchMovie:
-        return "/search/movie"
+        return "/3/search/movie"
 
     }
   }
@@ -43,11 +43,11 @@ enum TMDB: TargetType {
   var query: [String : String] {
     switch self {
       case .searchMovie(let text, let language, let region):
-        return ["text": text, "language": language, "region": region]
+        return ["query": text, "language": language, "region": region]
     }
   }
 
   var header: [String : String] {
-    ["Authorization": accessToken ?? ""]
+    ["Authorization": "Bearer " + (accessToken ?? "")]
   }
 }

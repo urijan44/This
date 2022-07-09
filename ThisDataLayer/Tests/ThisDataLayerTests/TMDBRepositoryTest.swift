@@ -35,6 +35,6 @@ final class TMDBRepositoryTest: XCTestCase {
           exp.fulfill()
       }
     }
-    waitForExpectations(timeout: 0.5)
+    waitForExpectations(timeout: 0.1)
   }
 }
