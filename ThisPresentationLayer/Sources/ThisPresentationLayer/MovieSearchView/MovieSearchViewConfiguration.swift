@@ -65,6 +65,7 @@ extension MovieSearchView {
 
       $searchText
         .debounce(for: 1, scheduler: DispatchQueue.main)
+        .filter { !$0.isEmpty }
         .removeDuplicates()
         .flatMap({ [unowned self] searchText in
           fetchSearcResult(searchText: searchText)

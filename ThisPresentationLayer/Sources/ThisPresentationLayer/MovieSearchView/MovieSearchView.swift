@@ -88,14 +88,11 @@ public struct MovieSearchView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
       }
-      Button {
-        showShareSheet.toggle()
-      } label: {
+      Link(destination: URL(string: viewModel.imageURLString) ?? URL(fileURLWithPath: "")) {
         Image(systemName: "square.and.arrow.up")
           .resizable()
           .aspectRatio(nil, contentMode: .fit)
           .frame(width: 22)
-          .foregroundColor(.black)
       }
     }
     .padding(EdgeInsets(top: 0, leading: 16, bottom: 40, trailing: 16))
@@ -135,4 +132,9 @@ struct ActivityView: UIViewControllerRepresentable {
   func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
 
   }
+
+  func translate(image: Image) {
+
+  }
 }
+
