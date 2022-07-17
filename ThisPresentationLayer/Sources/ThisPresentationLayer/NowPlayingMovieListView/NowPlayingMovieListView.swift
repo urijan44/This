@@ -7,14 +7,20 @@
 
 import SwiftUI
 
-struct NowPlayingMovieListView: View {
-  @State private var viewModel = ""
+public struct NowPlayingMovieListView: View {
+  @State private var viewModels: [ViewModel] = []
   @State private var searchText = ""
-  var body: some View {
+  public var body: some View {
     ScrollView {
       VStack {
         searchSection
-//        FilteredList(<#T##items: [Identifiable]##[Identifiable]#>, filterBy: <#T##KeyPath<Identifiable, FilterKey>#>, isIncluded: <#T##(FilterKey) -> Bool#>, rowContent: <#T##(Identifiable) -> View#>)
+        FilteredList(
+          viewModels,
+          filterBy: \.localTitle) { title in
+            title.hasSubString(searchText)
+          } rowContent: { viewModel in
+            MovieRowView(item: viewModel)
+          }
       }
     }
   }
@@ -27,41 +33,41 @@ struct NowPlayingMovieListView: View {
     }
     .padding()
   }
+
+  public init(viewModels: [ViewModel], searchText: String = "") {
+    self.viewModels = viewModels
+    self.searchText = searchText
+  }
 }
 
-struct FilteredList<Element, FilterKey, RowContent>: View where Element: Identifiable, RowContent: View {
-  private let items: [Element]
-  private let filterKey: KeyPath<Element, FilterKey>
-  private let isIncluded: (FilterKey) -> Bool
-  private let rowContent: (Element) -> RowContent
-
-  var body: some View {
-    filteredBody
-  }
-
-  var filteredBody: some View {
-    let filteredItem = items.filter {
-      isIncluded($0[keyPath: filterKey])
-    }
-    return ForEach(filteredItem, id: \.id) { key in
-      rowContent(key)
-    }
-  }
-
-  init(
-    _ items: [Element],
-    filterBy key: KeyPath<Element, FilterKey>,
-    isIncluded: @escaping (FilterKey) -> Bool,
-    @ViewBuilder rowContent: @escaping (Element) -> RowContent) {
-    self.items = items
-    self.filterKey = key
-    self.isIncluded = isIncluded
-    self.rowContent = rowContent
+extension String {
+  func hasSubString(_ substring: String) -> Bool {
+    substring.isEmpty || contains(substring)
   }
 }
 
 struct NowPlayingMovieListView_Previews: PreviewProvider {
   static var previews: some View {
-    NowPlayingMovieListView()
+    NowPlayingMovieListView(viewModels: [])
+  }
+}
+
+extension NowPlayingMovieListView {
+  public struct ViewModel: Identifiable, MovieRowItem {
+    private(set) public var id: String
+    private(set) public var imageURL: String
+    private(set) public var originalTitle: String
+    private(set) public var localTitle: String
+    private(set) public var voteRate: String
+    private(set) public var overview: String
+
+    public init(id: String, imageURL: String, originalTitle: String, localTitle: String, voteRate: String, overview: String) {
+      self.id = id
+      self.imageURL = imageURL
+      self.originalTitle = originalTitle
+      self.localTitle = localTitle
+      self.voteRate = voteRate
+      self.overview = overview
+    }
   }
 }
