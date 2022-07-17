@@ -13,7 +13,6 @@ public struct MovieSearchView: View {
   @State private var viewModel: ViewModel = .init(title: "", releaseDateString: "", genreString: "", castingString: "", bookmarked: false, imageURLString: "")
   @State private var image = Image(systemName: "heart")
   @State private var cancellables = Set<AnyCancellable>()
-  @State private var showShareSheet = false
   public var body: some View {
     NavigationView {
       ScrollView {
@@ -25,9 +24,6 @@ public struct MovieSearchView: View {
       .navigationTitle(viewModel.title)
     }
     .navigationViewStyle(.stack)
-    .sheet(isPresented: $showShareSheet) {
-      ActivityView(image: image, title: viewModel.title, subTitle: viewModel.releaseDateString)
-    }
     .searchable(text: $configuration.searchText)
     .onAppear(perform: bind)
   }
@@ -93,6 +89,7 @@ public struct MovieSearchView: View {
           .resizable()
           .aspectRatio(nil, contentMode: .fit)
           .frame(width: 22)
+          .foregroundColor(Color.primary)
       }
     }
     .padding(EdgeInsets(top: 0, leading: 16, bottom: 40, trailing: 16))
@@ -120,21 +117,3 @@ struct MovieSearchView_Previews: PreviewProvider {
     MovieSearchView(configuration: .init(useCase: MockMovieSearchUseCase()))
   }
 }
-
-struct ActivityView: UIViewControllerRepresentable {
-  let image: Image
-  let title: String
-  let subTitle: String
-  func makeUIViewController(context: Context) -> UIActivityViewController {
-    UIActivityViewController(activityItems: [image, title, subTitle], applicationActivities: [])
-  }
-
-  func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
-
-  }
-
-  func translate(image: Image) {
-
-  }
-}
-
