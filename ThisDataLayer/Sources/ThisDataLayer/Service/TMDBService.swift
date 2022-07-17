@@ -39,10 +39,23 @@ struct TMDBService {
         let region: String
       }
     }
+
+    enum NowPlaying {
+      struct Message {
+
+      }
+    }
   }
 
   enum Response {
     enum SearchMovie {
+      struct Message {
+        let data: Data?
+        let error: TMDBError?
+      }
+    }
+
+    enum NowPlaying {
       struct Message {
         let data: Data?
         let error: TMDBError?
@@ -58,29 +71,61 @@ struct TMDBService {
     provider.request(
       .searchMovie(text: message.text, language: message.language, region: message.region)) { result in
         let message: Response.SearchMovie.Message
+        switch result {
+          case .success((let data, let response)):
+            guard let response = response as? HTTPURLResponse else {
+              message = Response.SearchMovie.Message(data: nil, error: .invalidResponse)
+              completion(message)
+              return
+            }
+            switch response.statusCode {
+              case 200..<300:
+                if let data = data {
+                  message = Response.SearchMovie.Message(data: data, error: nil)
+                } else {
+                  message = Response.SearchMovie.Message(data: nil, error: .invalidData)
+                }
+              case 400..<500, 500..<600:
+                message = Response.SearchMovie.Message(data: nil, error: .clientError(response.statusCode, response.statusCode == 401 ? "인증 정보가 잘못 되었습니다." : response.description))
+              default:
+                message = Response.SearchMovie.Message(data: nil, error: .unknown("\(response.statusCode)"))
+            }
+          case .failure(let error):
+            message = Response.SearchMovie.Message(data: nil, error: .unknown(error.localizedDescription))
+        }
+        completion(message)
+      }
+    }
+
+  func request(
+    message: Request.NowPlaying.Message,
+    completion: @escaping (Response.NowPlaying.Message) -> Void
+  ) {
+    provider.request(.nowPlaying) { result in
+      let message: Response.NowPlaying.Message
       switch result {
         case .success((let data, let response)):
           guard let response = response as? HTTPURLResponse else {
-            message = Response.SearchMovie.Message(data: nil, error: .invalidResponse)
+            message = Response.NowPlaying.Message(data: nil, error: .invalidResponse)
             completion(message)
             return
           }
           switch response.statusCode {
             case 200..<300:
               if let data = data {
-                message = Response.SearchMovie.Message(data: data, error: nil)
+                message = Response.NowPlaying.Message(data: data, error: nil)
               } else {
-                message = Response.SearchMovie.Message(data: nil, error: .invalidData)
+                message = Response.NowPlaying.Message(data: nil, error: .invalidData)
               }
             case 400..<500, 500..<600:
-              message = Response.SearchMovie.Message(data: nil, error: .clientError(response.statusCode, response.statusCode == 401 ? "인증 정보가 잘못 되었습니다." : response.description))
+              message = Response.NowPlaying.Message(data: nil, error: .clientError(response.statusCode, response.statusCode == 401 ? "인증 정보가 잘못 되었습니다." : response.description))
             default:
-              message = Response.SearchMovie.Message(data: nil, error: .unknown("\(response.statusCode)"))
+              message = Response.NowPlaying.Message(data: nil, error: .unknown("\(response.statusCode)"))
           }
         case .failure(let error):
-          message = Response.SearchMovie.Message(data: nil, error: .unknown(error.localizedDescription))
+          message = Response.NowPlaying.Message(data: nil, error: .unknown(error.localizedDescription))
       }
-        completion(message)
+      completion(message)
     }
   }
 }

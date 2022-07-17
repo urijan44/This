@@ -7,6 +7,6 @@
 
 import Foundation
 import Combine 
-public protocol MovieSearchUseCaseInterface  {
+public protocol MovieSearchUseCaseInterface {
   func fetchSearcResult(searchText: String) -> AnyPublisher<Movie, Never>
 }

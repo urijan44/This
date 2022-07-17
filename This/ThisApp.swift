@@ -14,8 +14,17 @@ struct ThisApp: App {
 
   var body: some Scene {
     WindowGroup {
-      diContainer.makeMovieSearchView()
-        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+      TabView {
+        diContainer.makeMovieSearchView()
+          .environment(\.managedObjectContext, persistenceController.container.viewContext)
+          .tabItem {
+            Label("검색", systemImage: "magnifyingglass")
+          }
+        diContainer.makeNowPlayingMovieListView()
+          .tabItem {
+            Label("검색", systemImage: "play.rectangle.fill")
+          }
+      }
     }
   }
 }

@@ -66,6 +66,23 @@ extension TMDBRepository: TMDBRepositoryInterface {
   }
 
   public func fetchNowPlayingMovieList(completion: @escaping (Result<NowPlayingMovieListResponse, Error>) -> Void) {
-//    service.request(message: <#T##TMDBService.Request.SearchMovie.Message#>, completion: <#T##(TMDBService.Response.SearchMovie.Message) -> Void#>)
+    service.request(message: .init()) { result in
+      if let error = result.error {
+        completion(.failure(error))
+        return
+      }
+
+      guard let data = result.data else {
+        completion(.failure(NSError(domain: "No data", code: -1)))
+        return
+      }
+
+      do {
+        let decoded = try JSONDecoder().decode(NowPlayingMovieListResponse.self, from: data)
+        completion(.success(decoded))
+      } catch let error {
+        completion(.failure(error))
+      }
+    }
   }
 }

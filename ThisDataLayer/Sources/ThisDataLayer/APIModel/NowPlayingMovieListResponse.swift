@@ -6,7 +6,23 @@
 //
 
 import Foundation
+
+// MARK: - NowPlayingMovieListResponse
 public struct NowPlayingMovieListResponse: Codable {
+  public var page: Int?
+  public var results: [NowPlayingMovieListResult]?
+  public var totalPages: Int?
+  public var totalResults: Int?
+
+  enum CodingKeys: String, CodingKey {
+    case page = "page"
+    case results = "results"
+    case totalPages = "total_pages"
+    case totalResults = "total_results"
+  }
+}
+
+public struct NowPlayingMovieListResult: Codable {
   public var adult: Bool?
   public var backdropPath: String?
   public var genreIDS: [Int]?

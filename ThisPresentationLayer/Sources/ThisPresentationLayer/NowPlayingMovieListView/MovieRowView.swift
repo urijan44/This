@@ -21,24 +21,27 @@ public struct MovieRowView: View {
   private let item: MovieRowItem
   public var body: some View {
     HStack {
-      VStack(alignment: .leading) {
+      VStack {
         Image(uiImage: configuration.image)
           .resizable()
           .aspectRatio(nil, contentMode: .fit)
-          .layoutPriority(1)
-          .frame(width: 100)
           .opacity(configuration.imageDownloadState ? 1 : 0)
           .transition(.opacity)
           .animation(.easeIn(duration: 0.3), value: configuration.imageDownloadState)
         Text(item.originalTitle)
-          .minimumScaleFactor(0.4)
+          .minimumScaleFactor(0.3)
           .lineLimit(1)
         Text(item.localTitle)
+          .minimumScaleFactor(0.3)
+          .lineLimit(1)
         Text("평점: \(item.voteRate)")
       }
+      .frame(width: 100)
       Text(item.overview)
-        .layoutPriority(2)
+        .lineLimit(4)
     }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(6)
     .onAppear {
       configuration.downloadImage(urlString: item.imageURL)
     }
@@ -63,6 +66,7 @@ extension MovieRowView {
     private func fetchImage(urlString: String) {
       guard let url = URL(string: urlString) else { return }
       URLSession.shared.dataTaskPublisher(for: url)
+        .receive(on: DispatchQueue.main)
         .compactMap { (data, _) in
           return UIImage(data: data)
         }
