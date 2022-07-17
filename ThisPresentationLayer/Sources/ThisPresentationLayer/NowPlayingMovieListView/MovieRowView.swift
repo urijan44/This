@@ -26,7 +26,10 @@ public struct MovieRowView: View {
           .resizable()
           .aspectRatio(nil, contentMode: .fit)
           .layoutPriority(1)
-        .frame(width: 100)
+          .frame(width: 100)
+          .opacity(configuration.imageDownloadState ? 1 : 0)
+          .transition(.opacity)
+          .animation(.easeIn(duration: 0.3), value: configuration.imageDownloadState)
         Text(item.originalTitle)
           .minimumScaleFactor(0.4)
           .lineLimit(1)
@@ -49,9 +52,11 @@ public struct MovieRowView: View {
 extension MovieRowView {
   final class Configuration: ObservableObject {
     @Published var image = UIImage()
+    @Published var imageDownloadState = false
     private var cancellables = Set<AnyCancellable>()
 
     func downloadImage(urlString: String) {
+      imageDownloadState = false
       fetchImage(urlString: urlString)
     }
 
@@ -59,17 +64,21 @@ extension MovieRowView {
       guard let url = URL(string: urlString) else { return }
       URLSession.shared.dataTaskPublisher(for: url)
         .compactMap { (data, _) in
-          UIImage(data: data)
+          return UIImage(data: data)
         }
         .replaceError(with: UIImage())
-        .assign(to: &$image)
+        .sink { [weak self] image in
+          self?.imageDownloadState = true
+          self?.image = image
+        }
+        .store(in: &cancellables)
     }
   }
 }
 
 struct MovieRowView_Previews: PreviewProvider {
   struct DummyItem: MovieRowItem {
-    var imageURL: String = Bundle.module.path(forResource: "sample_movie1", ofType: "jpg") ?? ""
+    var imageURL: String = "https://image.tmdb.org/t/p/w500//jMLiTgCo0vXJuwMzZGoNOUPfuj7.jpg"
     var originalTitle = "Top Gun: Maverick"
     var localTitle = "탑건: 메버릭"
     var voteRate = "평점: 8.4"
