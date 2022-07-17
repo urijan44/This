@@ -31,7 +31,12 @@ public struct MovieSearchInteractor {
         genre: genreIDSFormatting(genres: movieSearchResult.genreIDS),
         casting: [],
         boomarked: false,
-        imageURLString: "https://image.tmdb.org/t/p/w500/" + (movieSearchResult.posterPath ?? ""))
+        imageURLString: "https://image.tmdb.org/t/p/w500/" + (movieSearchResult.posterPath ?? ""),
+        overview: "",
+        voteRate: "",
+        originalTitle: "",
+        localTitle: ""
+      )
     }
   }
 
