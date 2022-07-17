@@ -23,6 +23,9 @@ public struct NowPlayingMovieListView: View {
           }
       }
     }
+    .onAppear {
+
+    }
   }
 
   var searchSection: some View {
