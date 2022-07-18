@@ -42,7 +42,7 @@ struct TMDBService {
 
     enum NowPlaying {
       struct Message {
-
+        let page: Int
       }
     }
   }
@@ -101,7 +101,7 @@ struct TMDBService {
     message: Request.NowPlaying.Message,
     completion: @escaping (Response.NowPlaying.Message) -> Void
   ) {
-    provider.request(.nowPlaying) { result in
+    provider.request(.nowPlaying(page: message.page)) { result in
       let message: Response.NowPlaying.Message
       switch result {
         case .success((let data, let response)):

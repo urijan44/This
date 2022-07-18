@@ -39,6 +39,7 @@ extension NowPlayingMovieListView {
 
   enum Action {
     case viewDidLoad
+    case currentPresentRow
   }
 
   public final class Configuration: ObservableObject {
@@ -59,7 +60,10 @@ extension NowPlayingMovieListView {
             ViewModel(movie: movie)
           }
         }
-        .assign(to: &$viewModels)
+        .sink { [unowned self] newMovies in
+          viewModels.append(contentsOf: newMovies)
+        }
+        .store(in: &cancellables)
     }
   }
 }

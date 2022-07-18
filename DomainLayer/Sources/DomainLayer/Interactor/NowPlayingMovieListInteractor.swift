@@ -16,9 +16,14 @@ public struct NowPlayingMovieListInteractor {
     self.repository = repository
   }
 
-  private func transform(dataAccessObject: NowPlayingMovieListResponse) -> [Movie] {
-    guard let results = dataAccessObject.results else { return [] }
-    return results
+  private func transform(dataAccessObject: NowPlayingMovieListResponse) -> NowPlayingMovieListUseCase.Message.Response {
+    guard
+      let results = dataAccessObject.results,
+      let page = dataAccessObject.page,
+      let totalPage = dataAccessObject.totalPages
+    else { return .init(page: -1, totalPage: -1, movie: [])}
+
+    let movies = results
       .compactMap { result in
         Movie(
           id: "\(result.id ?? -1)",
@@ -32,8 +37,9 @@ public struct NowPlayingMovieListInteractor {
           voteRate: String(format: "%.1f", result.voteAverage ?? 0.0),
           originalTitle: result.originalTitle ?? "",
           localTitle: result.title ?? ""
-          )
+        )
       }
+    return .init(page: page, totalPage: totalPage, movie: movies)
   }
 
   private func releaseDateFormatting(date: String?) -> Date {
@@ -55,12 +61,11 @@ public struct NowPlayingMovieListInteractor {
 extension NowPlayingMovieListInteractor: NowPlayingMovieListInteractorInterface {
   public func fetchNowPlayingMovieList(request: NowPlayingMovieListUseCase.Message.Request) -> Future<NowPlayingMovieListUseCase.Message.Response, Error> {
     return Future<NowPlayingMovieListUseCase.Message.Response, Error> { promise in
-      repository.fetchNowPlayingMovieList { result in
+      repository.fetchNowPlayingMovieList(page: request.page) { result in
         switch result {
           case .success(let response):
-            let movies = transform(dataAccessObject: response)
-            let response = NowPlayingMovieListUseCase.Message.Response(movie: movies)
-            promise(.success(response))
+            let useCaseResponse = transform(dataAccessObject: response)
+            promise(.success(useCaseResponse))
           case .failure(let error):
             promise(.failure(error))
         }

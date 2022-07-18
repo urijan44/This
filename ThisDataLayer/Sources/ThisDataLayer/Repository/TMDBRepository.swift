@@ -10,7 +10,7 @@ import Foundation
 public protocol TMDBRepositoryInterface {
   func fetchSearchResult(text: String, language: String, region: String, completion: @escaping (Result<MovieSearchResultResponse, Error>) -> Void)
   func fetchGenreResult(genreID: Int) -> String
-  func fetchNowPlayingMovieList(completion: @escaping (Result<NowPlayingMovieListResponse, Error>) -> Void)
+  func fetchNowPlayingMovieList(page: Int, completion: @escaping (Result<NowPlayingMovieListResponse, Error>) -> Void)
 }
 
 public struct TMDBRepository {
@@ -65,8 +65,8 @@ extension TMDBRepository: TMDBRepositoryInterface {
     genre[genreID] ?? "unknown"
   }
 
-  public func fetchNowPlayingMovieList(completion: @escaping (Result<NowPlayingMovieListResponse, Error>) -> Void) {
-    service.request(message: .init()) { result in
+  public func fetchNowPlayingMovieList(page: Int, completion: @escaping (Result<NowPlayingMovieListResponse, Error>) -> Void) {
+    service.request(message: .init(page: page)) { result in
       if let error = result.error {
         completion(.failure(error))
         return

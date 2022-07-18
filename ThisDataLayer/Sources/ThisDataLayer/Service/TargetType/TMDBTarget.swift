@@ -20,7 +20,7 @@ enum TMDB: TargetType {
   }
 
   case searchMovie(text: String, language: String, region: String)
-  case nowPlaying
+  case nowPlaying(page: Int)
 
   var baseURL: String {
     "https://api.themoviedb.org/"
@@ -48,8 +48,8 @@ enum TMDB: TargetType {
     switch self {
       case .searchMovie(let text, let language, let region):
         return ["query": text, "language": language, "region": region]
-      case .nowPlaying:
-        return ["language": "ko-KR", "region": "KR"]
+      case .nowPlaying(let page):
+        return ["language": "ko-KR", "region": "KR", "page": "\(page)"]
     }
   }
 

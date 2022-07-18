@@ -20,13 +20,12 @@ public struct MovieRowView: View {
   @StateObject private var configuration = Configuration()
   private let item: MovieRowItem
   public var body: some View {
-    HStack {
+    HStack(alignment: .top) {
       VStack {
         Image(uiImage: configuration.image)
           .resizable()
           .aspectRatio(nil, contentMode: .fit)
           .opacity(configuration.imageDownloadState ? 1 : 0)
-          .transition(.opacity)
           .animation(.easeIn(duration: 0.3), value: configuration.imageDownloadState)
         Text(item.originalTitle)
           .minimumScaleFactor(0.3)
@@ -38,7 +37,7 @@ public struct MovieRowView: View {
       }
       .frame(width: 100)
       Text(item.overview)
-        .lineLimit(4)
+        .lineLimit(6)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(6)

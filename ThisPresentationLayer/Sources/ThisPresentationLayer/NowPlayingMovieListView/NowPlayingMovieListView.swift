@@ -13,7 +13,7 @@ public struct NowPlayingMovieListView: View {
   @State private var searchText = ""
   public var body: some View {
     ScrollView {
-      VStack {
+      LazyVStack {
         searchSection
         FilteredList(
           configuration.viewModels,
@@ -21,6 +21,11 @@ public struct NowPlayingMovieListView: View {
             title.hasSubString(searchText)
           } rowContent: { viewModel in
             MovieRowView(item: viewModel)
+              .id(viewModel.id)
+          }
+        Color.clear
+          .onAppear {
+            configuration.fetchMovieList()
           }
       }
     }
@@ -28,6 +33,7 @@ public struct NowPlayingMovieListView: View {
       configuration.fetchMovieList()
     }
   }
+
 
   var searchSection: some View {
     HStack(spacing: 6) {
